@@ -4,8 +4,6 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const tdb_dep = b.dependency("tidesdb", .{});
-
     const cflags: []const []const u8 = &.{
         "-std=c11",
         "-D_FILE_OFFSET_BITS=64",
@@ -19,10 +17,10 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
         .link_libc = true,
     });
-    clib_mod.addIncludePath(tdb_dep.path("src"));
-    clib_mod.addIncludePath(tdb_dep.path("external"));
+    clib_mod.addIncludePath(b.path("tidesdb/src"));
+    clib_mod.addIncludePath(b.path("tidesdb/external"));
     clib_mod.addCSourceFiles(.{
-        .root = tdb_dep.path("src"),
+        .root = b.path("tidesdb/src"),
         .files = &.{
             "tidesdb.c",
             "alloc.c",
@@ -42,7 +40,7 @@ pub fn build(b: *std.Build) void {
         .flags = cflags,
     });
     clib_mod.addCSourceFiles(.{
-        .root = tdb_dep.path("external"),
+        .root = b.path("tidesdb/external"),
         .files = &.{ "ini.c", "xxhash.c" },
         .flags = cflags,
     });

@@ -3,16 +3,13 @@
     .version = "0.1.0",
     .fingerprint = 0x91fcb4e0bb811764,
     .minimum_zig_version = "0.16.0",
-    .dependencies = .{
-        .tidesdb = .{
-            .path = "../tidesdb",
-        },
-    },
+    .dependencies = .{},
     .paths = .{
         "build.zig",
         "build.zig.zon",
         "src",
-        "tests",
+        "tidesdb",
         "LICENSE",
+        "README.md",
     },
 }
